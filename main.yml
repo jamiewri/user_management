@@ -6,14 +6,15 @@
     - name: Check if user "{{ user_input }}" exists on Linux hosts
       user:
         name: "{{ user_input }}"
-         
+      when: "'Linux' in platform"  
 - name: Unix Tasks
   hosts: unix 
   gather_facts: false
   tasks:
-    - name: Check if user "{{ user_input }}" exists on Linux hosts
+    - name: Check if user "{{ user_input }}" exists on Unix hosts
       user:
         name: "{{ user_input }}"
+      when: "'Unix' in platform" 
 
 - name: IOS Tasks
   hosts: cisco
@@ -22,3 +23,4 @@
     - name: Check if user "{{ user_input }}" exists on IOS devices
       ios_user:
         name: "{{ user_input }}"
+      when: "'Cisco' in platform" 
