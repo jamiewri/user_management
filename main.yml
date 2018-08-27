@@ -1,29 +1,60 @@
 ---
-- name: Linux Tasks
+- name: Linux Create Tasks
   hosts: linux 
   gather_facts: false
   tasks:
     - name: Check if user "{{ user_input }}" exists on Linux hosts
       user:
         name: "{{ user_input }}"
-      when: 
-        - "'Linux' in platform"  
-        - user_delete is not defined
+      when: ('Linux' in platform and  user_delete == '')
 
-- name: Unix Tasks
+- name: Unix Create Tasks
   hosts: unix 
   gather_facts: false
   tasks:
     - name: Check if user "{{ user_input }}" exists on Unix hosts
       user:
         name: "{{ user_input }}"
-      when: "'Unix' in platform" 
+      when: "'Unix' in platform"  and  user_delete == ""
 
-- name: IOS Tasks
+- name: IOS Create Tasks
   hosts: cisco
   gather_facts: false
   tasks:
     - name: Check if user "{{ user_input }}" exists on IOS devices
       ios_user:
         name: "{{ user_input }}"
-      when: "'Cisco' in platform" 
+      when: "'Cisco' in platform"  and  user_delete == "" 
+
+
+
+
+- name: Linux Delete Tasks
+  hosts: linux
+  gather_facts: false
+  tasks:
+    - name: Check if user "{{ user_input }}" exists on Linux hosts
+      user:
+        name: "{{ user_input }}"
+        state: absent
+      when: "'Linux' in platform" and  user_delete == "DELETE"
+
+- name: Unix Delete Tasks
+  hosts: unix 
+  gather_facts: false
+  tasks:
+    - name: Check if user "{{ user_input }}" exists on Unix hosts
+      user:
+        name: "{{ user_input }}"
+        state: absent
+      when: "'Unix' in platform"  and  user_delete == "DELETE"
+
+- name: IOS Deletel Tasks
+  hosts: cisco
+  gather_facts: false
+  tasks:
+    - name: Check if user "{{ user_input }}" exists on IOS devices
+      ios_user:
+        name: "{{ user_input }}"
+        state: absent
+      when: "'Cisco' in platform"  and  user_delete == "DELETE"
