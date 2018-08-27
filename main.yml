@@ -3,7 +3,14 @@
   hosts: linux 
   gather_facts: false
   tasks:
-    - name: Check if user exists on Linux hosts
+    - name: Check if user "{{ user_input }}" exists on Linux hosts
       user:
         name: "{{ user_input }}"
          
+- name: Check if user exists
+  hosts: unix 
+  gather_facts: false
+  tasks:
+    - name: Check if user "{{ user_input }}" exists on Linux hosts
+      user:
+        name: "{{ user_input }}"
