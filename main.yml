@@ -1,6 +1,6 @@
 ---
 - name: Check if user exists
-  hosts: "{{ hosts_input }}"
+  hosts: linux 
   gather_facts: false
   tasks:
     - name: Check if user exists on Linux hosts
