@@ -6,7 +6,10 @@
     - name: Check if user "{{ user_input }}" exists on Linux hosts
       user:
         name: "{{ user_input }}"
-      when: "'Linux' in platform"  
+      when: 
+        - "'Linux' in platform"  
+        - user_delete is not defined
+
 - name: Unix Tasks
   hosts: unix 
   gather_facts: false
