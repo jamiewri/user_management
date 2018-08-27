@@ -1,5 +1,5 @@
 ---
-- name: Check if user exists
+- name: Linux Tasks
   hosts: linux 
   gather_facts: false
   tasks:
@@ -7,10 +7,18 @@
       user:
         name: "{{ user_input }}"
          
-- name: Check if user exists
+- name: Unix Tasks
   hosts: unix 
   gather_facts: false
   tasks:
     - name: Check if user "{{ user_input }}" exists on Linux hosts
       user:
+        name: "{{ user_input }}"
+
+- name: IOS Tasks
+  hosts: cisco
+  gather_facts: false
+  tasks:
+    - name: Check if user "{{ user_input }}" exists on IOS devices
+      ios_user:
         name: "{{ user_input }}"
